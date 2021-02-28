@@ -1,0 +1,76 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    --lg: linear-gradient(to left bottom, #FFFFFF90, #FFFFFF50);
+    font-family: "Segoe UI", serif;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(to right top, #ACB6E5, #86FDE8);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.window {
+    display: flex;
+
+    background: var(--lg);
+    width: 65%;
+    height: 80%;
+    border-radius: 15px;
+
+    overflow: hidden;
+}
+
+.func {
+    display: flex;
+    flex-direction: column;
+    background: var(--lg), var(--lg);
+    padding: 15px;
+}
+
+.func img {
+    width: 32px;
+    border-radius: 30%;
+    margin-bottom: 10px;
+    transition: filter 100ms;
+}
+
+.func img:hover {
+    filter: brightness(90%);
+}
+
+.func img:active {
+    filter: opacity(60%);
+}
+
+.func img, .sidebar p {
+    cursor: pointer;
+    user-select: none;
+}
+
+.sidebar {
+    border-right: solid #00000010 1px;
+    padding: 10px 15px;
+}
+
+.sidebar *[sect] {
+    margin-bottom: 5px;
+}
+
+.content {
+    padding: 10px 15px;
+}
+
+.title {
+    font-size: 20pt;
+}
+
+.bold {
+    font-weight: bold;
+}

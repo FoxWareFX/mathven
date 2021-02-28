@@ -1,0 +1,17 @@
+<section title="Random Number">
+    <input type="number" placeholder="min" id="min">
+    <input type="number" placeholder="max" id="max">
+    <br>
+    <button id="gen" onclick="gen()">Generate</button>
+    <p id="res"></p>
+
+    <script>
+        function rand(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        }
+
+        function gen() {
+            $("#res").html(rand(parseInt($("#min").val()), parseInt($("#max").val())));
+        }
+    </script>
+</section>

@@ -1,0 +1,71 @@
+<section title="Simplify Root">
+    <input placeholder="root" id="rt">
+    <button onclick="insRt()">√</button>
+    <br>
+    <button id="calc" onclick="calc(inp.val())">Calculate</button>
+    <p id="res"></p>
+
+    <script>
+        inp = $("#rt");
+
+        function insRt() {
+            inp.val(inp.val() + "√");
+            inp.focus();
+        }
+
+        function isPrime(n) {
+            for(let i = 2; i < n; i++)
+                if(n % i === 0) return false;
+            return n > 1;
+        }
+
+        function calc(n) {
+            let spl = n.split("√");
+            let nr, rt, fct = { };
+
+            if(spl[0] === "" || spl[0] === undefined)
+                nr = 1;
+            else
+                nr = parseInt(spl[0]);
+
+            if(spl[1] === "" || spl[1] === undefined)
+                rt = 1;
+            else
+                rt = parseInt(spl[1]);
+
+            while(rt > 1) {
+                for(let i = 2; i <= rt; i++) {
+                    if(!isPrime(i))
+                        continue;
+
+                    if(rt % i === 0) {
+                        if(!fct.hasOwnProperty(i))
+                            fct[i] = 0;
+
+                        fct[i] += 1;
+
+                        rt /= i;
+                    }
+                }
+            }
+
+            for(let k in fct) {
+                let num = parseInt(k);
+                let am = parseInt(fct[num]);
+                let na;
+
+                if(am >= 2) {
+                    na = Math.floor(am / 2);
+                    am -= na * 2;
+                    nr *= Math.pow(num, na);
+                }
+
+                if(am === 1) {
+                    rt *= num;
+                }
+            }
+
+            $("#res").html((nr > 1? nr : "") + (rt > 1? "√" + rt : ""));
+        }
+    </script>
+</section>
