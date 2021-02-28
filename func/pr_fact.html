@@ -13,7 +13,7 @@
 
         function calc(n) {
             let nLen = n.toString().length;
-            let res = "", mul = "";
+            let res = "", mul = "", mulU = "";
             let fct = [], uFct = { };
 
             while(n > 1) {
@@ -43,7 +43,13 @@
                     uFct[x] = 0;
                 uFct[x] += 1;
             });
-            res += mul;
+            for(let k in uFct) {
+                let v = uFct[k];
+
+                mulU += (mulU === ""? "" : " x ") + k + (v > 1? "<sup>" + v + "</sup>" : "");
+            }
+
+            res += mul + (mul !== mulU? " = " + mulU : "");
 
             $("#res").html(res);
         }
