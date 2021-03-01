@@ -1,8 +1,39 @@
 const sb = $(".sidebar");
 
 $(document).ready(function () {
-    loadFunc($(".func img").attr("func"));
+    let val = getQuery();
+
+    if(val.hasOwnProperty("func")) {
+        if(val.hasOwnProperty("sect"))
+            loadFunc(val["func"], val["sect"]);
+        else
+            loadFunc(val["func"]);
+    } else
+        loadFunc($(".func img").attr("func"));
 });
+
+function getQuery() {
+    let query = decodeURIComponent(window.location.href).split("?");
+
+    if(query <= 1)
+        return ;
+
+    query = query.slice(1).join("&");
+
+    let req = query.split("&");
+    let val = { };
+
+    req.forEach(function (x) {
+        let spl = x.split("=");
+
+        if(spl.length > 1)
+            val[spl[0].trim()] = spl[1].trim();
+        else
+            val[spl[0].trim()] = null;
+    });
+
+    return val;
+}
 
 $("*[func]").click(function () {
     loadFunc($(this).attr('func'));
@@ -12,7 +43,7 @@ function sbClickEv() {
     loadSect($(this).attr('sect'));
 }
 
-function loadFunc(f) {
+function loadFunc(f, lS) {
     $.get("func/data.json", function (data) {
         sb.html("");
 
@@ -32,7 +63,10 @@ function loadFunc(f) {
             $("*[sect]").click(sbClickEv);
         });
 
-        loadSect(data[f][0]);
+        if(typeof lS === "string")
+            loadSect(lS);
+        else
+            loadSect(data[f][0]);
     }, "json");
 }
 
