@@ -116,7 +116,7 @@ function loadFuncContent(f, lS) {
         );
     }
 
-    if(window.innerWidth > 546) {
+    if(window.innerWidth > 746) {
         if (typeof (lS) === "string")
             loadSectContent(lS);
         else {
