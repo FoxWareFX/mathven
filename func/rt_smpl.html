@@ -1,25 +1,22 @@
-<section title="Simplify Root">
-    <input placeholder="root" id="rt">
-    <button onclick="insRt()">√</button>
+<section>
+    <input class="in-text nospace" root placeholder="root" id="rt">
+    <p class="alert">Press [/] key for type √ symbol.</p>
+    <button id="calc" onclick="calc($('#rt').val())">Calculate</button>
     <br>
-    <button id="calc" onclick="calc(inp.val())">Calculate</button>
-    <p id="res"></p>
+    <pre id="res"></pre>
 
     <script>
-        inp = $("#rt");
+        function add(o, p) {
+            if(!o.hasOwnProperty(p))
+                o[p] = 0;
 
-        function insRt() {
-            inp.val(inp.val() + "√");
-            inp.focus();
-        }
-
-        function isPrime(n) {
-            for(let i = 2; i < n; i++)
-                if(n % i === 0) return false;
-            return n > 1;
+            o[p] += 1;
         }
 
         function calc(n) {
+            if(n === "")
+                return;
+
             let spl = n.split("√");
             let nr, rt, fct = { };
 
@@ -33,34 +30,31 @@
             else
                 rt = parseInt(spl[1]);
 
-            while(rt > 1) {
-                for(let i = 2; i <= rt; i++) {
-                    if(!isPrime(i))
-                        continue;
+            for(let i = 2; i * i <= rt;) {
+                if(rt % i === 0) {
+                    rt /= i;
+                    add(fct, i);
+                } else
+                    i += 1;
+            }
 
-                    if(rt % i === 0) {
-                        if(!fct.hasOwnProperty(i))
-                            fct[i] = 0;
-
-                        fct[i] += 1;
-
-                        rt /= i;
-                    }
-                }
+            if(rt > 1) {
+                add(fct, rt);
+                rt = 1;
             }
 
             for(let k in fct) {
                 let num = parseInt(k);
-                let am = parseInt(fct[num]);
-                let na;
+                let times = parseInt(fct[k]);
+                let leftTimes;
 
-                if(am >= 2) {
-                    na = Math.floor(am / 2);
-                    am -= na * 2;
-                    nr *= Math.pow(num, na);
+                if(times >= 2) {
+                    leftTimes = Math.floor(times / 2);
+                    times -= leftTimes * 2;
+                    nr *= Math.pow(num, leftTimes);
                 }
 
-                if(am === 1) {
+                if(times === 1) {
                     rt *= num;
                 }
             }

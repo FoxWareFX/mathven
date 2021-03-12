@@ -1,9 +1,27 @@
 {
-  "root": [
-    "rt_smpl"
-  ],
-  "various": [
-    "rand",
-    "pr_fact"
-  ]
+  "root": {
+    "img": "root.png",
+    "title": "Root",
+    "pages": {
+      "rt_smpl": "Simplify Root"
+    }
+  },
+  "various": {
+    "img": "various.png",
+    "title": "Various",
+    "pages": {
+      "rand": "Random Number",
+      "pr_fact": "Prime Factorization",
+      "chk_pnr": "Check Prime Number"
+    }
+  },
+  "config": {
+    "img": "settings.png",
+    "title": "Settings",
+    "pages": {
+      "priv": "Privacy & Cookies",
+      "cstm": "Customization",
+      "abt": "About"
+    }
+  }
 }

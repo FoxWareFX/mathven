@@ -1,0 +1,28 @@
+<section>
+    <input class="in-text" id="in" type="number" min="0" placeholder="positive number">
+    <br>
+    <button id="calc" onclick="calc($('#in').val())">Check</button>
+    <br>
+    <pre id="res"></pre>
+
+    <script>
+        function calc(n) {
+            if(n === "")
+                return;
+
+            let init = n;
+            let prime = true;
+
+            for(let i = 2; i * i <= n;) {
+                if(n % i === 0) {
+                    n /= i;
+                    prime = false;
+                    break;
+                } else
+                    i += 1;
+            }
+
+            $("#res").html(`${init} is ${prime? "" : "NOT "}prime!`);
+        }
+    </script>
+</section>

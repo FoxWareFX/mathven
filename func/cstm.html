@@ -1,0 +1,98 @@
+<section>
+    <p class="alert no-cstm-ck hide nospace">
+        You don't have Customization Cookies enabled! At refresh the customization settings will be lost...<br>
+        If your intent is to save this settings, go to privacy settings and enable customization cookies.
+    </p>
+    <a class="no-cstm-ck hide" sect="priv"> Go to Privacy & Cookies</a>
+
+    <p class="nospace">Color Palette</p>
+    <div class="colors"></div>
+    <button id="reset" onclick="resetClr()">Reset Color</button>
+
+    <style>
+        .colors {
+            display: flex;
+            flex-wrap: wrap;
+
+            --s: 42px;
+
+            max-width: calc(var(--s) * 12);
+        }
+
+        *[color] {
+            margin-bottom: 3px;
+            margin-right: 2px;
+
+            display: inline-block;
+            width: var(--s);
+            height: var(--s);
+            background: var(--clr);
+            border: var(--clr) solid 2px;
+        }
+
+        *[color]:hover, *[color].selected {
+            border-color: white;
+            position: relative;
+        }
+
+        *[color].selected:before {
+            content: '';
+            position: absolute;
+
+            display: block;
+            background: white;
+            width: 50%;
+            height: 50%;
+            right: 0;
+        }
+
+        *[color].selected:after {
+            content: '';
+            position: absolute;
+            --p: 2px;
+
+            -webkit-mask: url("res/tick.png") center/contain;
+            display: block;
+            background: black;
+            width: calc(50% - var(--p) * 2);
+            height: calc(50% - var(--p) * 2);
+            transform: translate(calc(var(--p) / -2), calc(var(--p) / 2));
+            right: 0;
+        }
+    </style>
+
+    <script>
+        if(getCookies()["cstm-ck"] !== "true") {
+            $(".no-cstm-ck").removeClass("hide");
+        }
+
+        colors.forEach(function (c) {
+            $(".colors").append(
+                $("<span></span>").css("--clr", c).attr("color", c)
+            );
+        });
+
+        updSelect();
+
+        $(".sect").on("click", "[color]", function () {
+            setColor($(this).attr("color"));
+            updSelect();
+        });
+
+        function updSelect() {
+            $('*[color]').removeClass("selected");
+            $(`*[color=${$("html").css("--theme")}]`).addClass("selected");
+        }
+
+        function setColor(c) {
+            if(getCookies()["cstm-ck"] === "true")
+                setCookie("theme", c, ckTime.y5)
+            $("html").css("--theme", c);
+        }
+
+        function resetClr() {
+            setColor(defaultClr);
+            updSelect();
+        }
+    </script>
+</section>

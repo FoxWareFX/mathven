@@ -1,57 +1,58 @@
-<section title="Prime Factorization">
-    <input placeholder="positive number" type="number" min="0" id="in">
+<section>
+    <input class="in-text" id="in" type="number" min="0" max="999999999999" placeholder="positive number">
     <br>
     <button id="calc" onclick="calc($('#in').val())">Calculate</button>
+    <br>
     <pre id="res"></pre>
 
     <script>
-        function isPrime(n) {
-            for(let i = 2; i < n; i++)
-                if(n % i === 0) return false;
-            return n > 1;
-        }
-
         function calc(n) {
+            if(n === "")
+                return;
+
+            let init = n;
             let nLen = n.toString().length;
             let res = "", mul = "", mulU = "";
             let fct = [], uFct = { };
 
-            while(n > 1) {
-                for(let i = 2; i <= n; i++) {
-                    if(!isPrime(i))
-                        continue;
-
-                    if(n % i === 0) {
-                        //FSP is used as space
-                        res += n.toString().padStart(nLen, " ") + " │ " + i + "\n";
-
-                        fct.push(i);
-
-                        n /= i;
-
-                        break;
-                    }
-                }
+            for(let i = 2; i * i <= n;) {
+                if(n % i === 0) {
+                    n /= i;
+                    fct.push(i);
+                } else
+                    i += 1;
             }
 
-            res += (1).toString().padStart(nLen, " ") + " │" + "\n\n";
+            if(n > 1) {
+                fct.push(n);
+                n = 1;
+            }
 
             fct.sort((a, b) => a - b);
 
             fct.forEach(function (x) {
+                res += `${init.toString().padStart(nLen, " ")} │ ${x}\n`;
+                init /= x;
+
                 mul += (mul === ""? "" : " x ") + x;
 
                 if(!uFct.hasOwnProperty(x))
                     uFct[x] = 0;
                 uFct[x] += 1;
             });
+
+            res += (1).toString().padStart(nLen, " ") + " │\n\n";
+
             for(let k in uFct) {
                 let v = uFct[k];
 
-                mulU += (mulU === ""? "" : " x ") + k + (v > 1? "<sup>" + v + "</sup>" : "");
+                mulU += (mulU === ""? "" : " x ") + k + (v > 1? getSup(v) : "");
             }
 
-            res += mul + (mul !== mulU? " = " + mulU : "");
+            if(mul.length > 50)
+                res += mulU;
+            else
+                res += mul + (mul !== mulU? " = " + mulU : "");
 
             $("#res").html(res);
         }

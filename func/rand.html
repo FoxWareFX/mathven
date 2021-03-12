@@ -1,9 +1,11 @@
-<section title="Random Number">
-    <input type="number" placeholder="min" id="min">
-    <input type="number" placeholder="max" id="max">
+<section>
+    <input type="number" placeholder="min" class="in-text" id="min">
+    <br>
+    <input type="number" placeholder="max" class="in-text" id="max">
     <br>
     <button id="gen" onclick="gen()">Generate</button>
-    <p id="res"></p>
+    <br>
+    <pre id="res"></pre>
 
     <script>
         function rand(min, max) {
@@ -11,7 +13,15 @@
         }
 
         function gen() {
-            $("#res").html(rand(parseInt($("#min").val()), parseInt($("#max").val())));
+            let min = parseInt($("#min").val());
+            let max = parseInt($("#max").val());
+
+            if(min > max) {
+                $("#min").val(max);
+                $("#max").val(min);
+            }
+
+            $("#res").html(rand(min, max));
         }
     </script>
 </section>

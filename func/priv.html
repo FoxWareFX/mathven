@@ -1,0 +1,30 @@
+<section>
+    <span class="checkbox checked disabled"></span>
+    <p>Save cookies about cookies preferences</p>
+    <br>
+    <span id="cb_pg-cstm" class="checkbox"></span>
+    <p>Save cookies about page customization</p>
+    <br>
+    <button onclick="dlt()" class="nospace">Delete Cookies</button>
+    <p id="btn_ck-dlt" class="alert hide">Reload the page for see the changes.</p>
+
+    <script>
+        if(getCookies()["cstm-ck"] === "true")
+            $("#cb_pg-cstm").addClass("checked");
+
+        $("#cb_pg-cstm").click(function () {
+            if(!$(this).hasClass("checked")) {
+                setCookie("cstm-ck", true, ckTime.y100);
+                setCookie("theme", $("html").css("--theme"), ckTime.y5);
+            } else {
+                setCookie("cstm-ck", false, ckTime.y100);
+                deleteCookie("theme");
+            }
+        });
+
+        function dlt() {
+            deleteAllCookies();
+            $("#btn_ck-dlt").removeClass("hide");
+        }
+    </script>
+</section>
