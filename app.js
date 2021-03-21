@@ -31,6 +31,8 @@ let func, sect;
 
  */
 
+history.scrollRestoration = "manual";
+
 if(getCookies()["theme"] !== "")
     $("html").css("--theme", getCookies()["theme"]);
 
