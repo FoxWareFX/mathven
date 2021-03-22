@@ -62,7 +62,7 @@
     </style>
 
     <script>
-        if(getCookies()["cstm-ck"] !== "true") {
+        if(localStorage.getItem("cstm-ck") !== "true") {
             $(".no-cstm-ck").removeClass("hide");
         }
 
@@ -85,8 +85,8 @@
         }
 
         function setColor(c) {
-            if(getCookies()["cstm-ck"] === "true")
-                setCookie("theme", c, ckTime.y5)
+            if(localStorage.getItem("cstm-ck") === "true")
+                localStorage.setItem("theme", c);
             $("html").css("--theme", c);
         }
 

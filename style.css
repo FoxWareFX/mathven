@@ -13,23 +13,39 @@
     border-radius: 0;
     box-sizing: border-box;
 
-    font-family: "Poppins", serif;
+    font-family: "Poppins", Verdana, serif;
     color: white;
     outline: none;
 }
 
 html {
-    background: url("res/bg.png");
+    background: url("res/bg.jpg");
 
     --elm-pb: 15px;
+
     --theme: dodgerblue;
+    --win-bg: #1F1F1FAA;
+    --bg: #000000;
+    --bg-sm: #00000044;
+    --clr: white;
+    --clr-sm: #FFFFFF33;
+    --desc: darkgray;
+    --semi-desc: lightgray;
+    --hover-bg: #FFFFFF20;
+    --hover-brd: #FFFFFF30;
+    --active-bg: #FFFFFF40;
+    --active-brd: #FFFFFF50;
+    --btn: #363636;
+
+    --disabled: #666;
+    --alert: yellow;
 }
 
 body {
     height: 100vh;
-    background: #1F1F1FEE; /*linear-gradient(to right top, #ACB6E5, #86FDE8)*/
+    background: var(--win-bg);
     overflow: hidden;
-    backdrop-filter: blur(45px);
+    backdrop-filter: blur(25px);
 }
 
 /*
@@ -84,7 +100,7 @@ body {
     flex-direction: column;
 
     height: 100%;
-    background: black;
+    background: var(--bg);
     overflow: auto;
 }
 
@@ -110,13 +126,13 @@ body {
 }
 
 .functions .card:hover {
-    background: #FFFFFF20;
-    border-color: #FFFFFF30;
+    background: var(--hover-bg);
+    border-color: var(--hover-brd);
 }
 
 .functions .card:active {
-    background: #FFFFFF40;
-    border-color: #FFFFFF50;
+    background: var(--active-bg);
+    border-color: var(--active-brd);
 }
 
 .functions .card .img {
@@ -134,7 +150,7 @@ body {
 
 .functions .card .desc {
     font-size: 11pt;
-    color: darkgray;
+    color: var(--desc);
     line-height: 2.5ex;
     height: 5ex;
 }
@@ -165,11 +181,11 @@ body {
 }
 
 .sidebar .element:hover {
-    background: #FFFFFF30;
+    background: var(--hover-brd);
 }
 
-.sidebar .element:active {
-    background: #FFFFFF40;
+.sidebar .element:active:hover {
+    background: var(--active-brd);
 }
 
 .sidebar .element.sel:before {
@@ -198,7 +214,7 @@ body {
 
 .func .content {
     flex: 1;
-    background: black;
+    background: var(--bg);
     padding: 20px 0 0 0;
     overflow: auto;
 
@@ -237,10 +253,6 @@ body {
 
  */
 
-pre {
-    font-family: "Open Sans", SansSerif, serif;
-}
-
 a {
     display: inline-block;
     color: var(--theme);
@@ -248,7 +260,7 @@ a {
 }
 
 a:hover {
-    color: darkgray;
+    color: var(--desc);
 }
 
 a:active {
@@ -271,14 +283,14 @@ a:active {
 }
 
 .in-text, #res {
-    color: white;
+    color: var(--clr);
     border: solid 2px gray;
-    background: #00000044;
+    background: var(--bg-sm);
     --w: 300px;
 }
 
 .in-text:not(:read-only):hover {
-    border-color: darkgrey;
+    border-color: var(--desc);
 }
 
 .in-text:not(:read-only):focus {
@@ -313,24 +325,22 @@ input[type=number] {
     user-select: text;
     min-width: var(--w);
     width: fit-content;
+    font-family: "Open Sans", serif;
 }
 
 button {
-    --bg: #363636;
-    --b: gray;
-
-    background: var(--bg);
-    border: 2px solid var(--bg);
+    background: var(--btn);
+    border: 2px solid var(--btn);
 }
 
 button:hover {
-    background: var(--bg);
-    border-color: var(--b);
+    background: var(--btn);
+    border-color: gray;
 }
 
 button:active {
-    background: var(--b);
-    border-color: var(--b);
+    background: gray;
+    border-color: gray;
 }
 
 .checkbox {
@@ -356,7 +366,7 @@ button:active {
 }
 
 .checkbox:hover {
-    border-color: lightgray;
+    border-color: var(--semi-desc);
 }
 
 .checkbox:active {
@@ -366,7 +376,7 @@ button:active {
 
 .checkbox.disabled {
     background: transparent;
-    border-color: #606060;
+    border-color: var(--disabled);
 }
 
 .checkbox.disabled.checked {
@@ -380,7 +390,7 @@ button:active {
 }
 
 .alert {
-    color: yellow;
+    color: var(--alert);
 }
 
 .nospace {
@@ -395,7 +405,7 @@ button:active {
 
 ::selection {
     background: var(--theme);
-    color: white;
+    color: var(--clr);
 }
 
 *::-webkit-scrollbar {
@@ -404,7 +414,7 @@ button:active {
 }
 
 *::-webkit-scrollbar-thumb {
-    background: #FFFFFF33;
+    background: var(--clr-sm);
 }
 
 *::-webkit-scrollbar-corner {
@@ -440,7 +450,7 @@ button:active {
 @media screen and (max-width: 746px) {
     .sidebar {
         width: 100%;
-        background: black;
+        background: var(--bg);
     }
 
     .sidebar .list .element:before {

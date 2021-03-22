@@ -4,16 +4,6 @@
 
  */
 
-let ckTime = (() => {
-    let o = { };
-    o.now = o.y5 = o.y100 = new Date();
-
-    o.y5.setFullYear(o.y5.getFullYear() + 5);
-    o.y100.setFullYear(o.y100.getFullYear() + 100);
-
-    return o;
-})();
-
 const funcContainer = $(".functions");
 const sidebar = $(".sidebar");
 const loadBar = $(".load-bar");
@@ -33,27 +23,30 @@ let func, sect;
 
 history.scrollRestoration = "manual";
 
-if(getCookies()["theme"] !== "")
-    $("html").css("--theme", getCookies()["theme"]);
+if(localStorage.getItem("theme") !== "")
+    $("html").css("--theme", localStorage.getItem("theme"));
 
 $.get("res/colors.json", function (d) {
     colors = d;
 });
 
+loading();
+
 $.ajax({
-    async: false,
     type: "GET",
     url: "func/data.json",
     success: function (d) {
         data = d;
+
+        if(url.query["func"] !== undefined) {
+            loadFuncContent(url.query["func"], url.query["sect"]);
+        }
+
+        loadFunctions();
+
+        loaded();
     }
 });
-
-if(url.query["func"] !== undefined) {
-    loadFuncContent(url.query["func"], url.query["sect"]);
-}
-
-loadFunctions();
 
 /*
 
@@ -198,32 +191,8 @@ function getSup(nr) {
     return r;
 }
 
-function getCookies() {
-    if(document.cookie === "")
-        return { };
-
-    let spl = document.cookie.split(";");
-    let cks = { };
-
-    spl.forEach(function (v) {
-        let spl2 = v.split("=");
-        cks[spl2[0].trim()] = spl2[1].trim();
-    });
-
-    return cks;
-}
-
 function setCookie(k, v, d) {
     document.cookie = `${k}=${v};expires=${d.toUTCString()}`;
-}
-
-function deleteCookie(k) {
-    document.cookie = k + "=;expires=" + new Date(0);
-}
-
-function deleteAllCookies() {
-    for(let k in getCookies())
-        deleteCookie(k);
 }
 
 /*
