@@ -78,7 +78,7 @@ function loadFunctions() {
             desc += "...";
 
         funcContainer.append(
-            $("<div class='card'></div>").attr("func", k).append(
+            $("<div class='card clickable'></div>").attr("func", k).append(
                 $("<div class='img'></div>").css("--img", `url('res/img/${v.img}')`)
             ).append(
                 $("<div class='data'></div>").append(
@@ -107,7 +107,7 @@ function loadFuncContent(f, lS) {
 
     for (let k in data[f].pages) {
         sidebar.children(".list").append(
-            $("<p></p>").addClass("element").attr("sect", k).html(data[f].pages[k])
+            $("<p class='element clickable'></p>").attr("sect", k).html(data[f].pages[k])
         );
     }
 

@@ -68,7 +68,7 @@
 
         colors.forEach(function (c) {
             $(".colors").append(
-                $("<span></span>").css("--clr", c).attr("color", c)
+                $("<span class='clickable'></span>").css("--clr", c).attr("color", c)
             );
         });
 

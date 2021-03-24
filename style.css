@@ -257,6 +257,7 @@ a {
     display: inline-block;
     color: var(--theme);
     text-decoration: none;
+    cursor: pointer;
 }
 
 a:hover {
@@ -395,6 +396,14 @@ button:active {
 
 .nospace {
     margin-bottom: 0;
+}
+
+.clickable {
+    transition: 50ms transform;
+}
+
+.clickable:hover:active {
+    transform: scale(0.99) matrix3d(1, 0, 0, 0, 0, 1, 0, -0.0002, 0, 0, 1, 0, 0, 0, 0, 1);
 }
 
 /*
